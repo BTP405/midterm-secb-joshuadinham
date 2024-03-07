@@ -24,7 +24,9 @@ class ManagementSystem:
         """
         Initialize a ManagementSystem object.
         """
-        pass
+        self.employees = []
+        self.projects = []
+        self.tasks = []
 
     def add_employee(self, employee):
         """
@@ -33,7 +35,7 @@ class ManagementSystem:
         Args:
             employee (Employee): The employee to be added.
         """
-        pass
+        self.employees.append(employee)
 
     def remove_employee(self, emp_id):
         """
@@ -42,7 +44,7 @@ class ManagementSystem:
         Args:
             emp_id (str): The ID of the employee to be removed.
         """
-        pass
+        self.employees = [emp for emp in self.employees if emp.emp_id != emp_id]
 
     def add_project(self, project):
         """
@@ -51,7 +53,7 @@ class ManagementSystem:
         Args:
             project (Project): The project to be added.
         """
-        pass
+        self.projects.append(project)
 
     def add_task(self, task):
         """
@@ -60,7 +62,7 @@ class ManagementSystem:
         Args:
             task (Task): The task to be added.
         """
-        pass
+        self.tasks.append(task)
 
     def assign_employee_to_project(self, emp_id, project_id):
         """
@@ -73,4 +75,26 @@ class ManagementSystem:
         Raises:
             ValueError: If employee or project is not found.
         """
-        pass
+        flag = False
+        found_employee = False
+        found_project = False
+        m_employee = None
+        m_project = None
+        for employee in self.employees:
+            if employee.emp_id == emp_id:
+                found_employee = True
+                m_employee = employee
+
+        for project in self.projects:
+            if project.project_id == project_id:
+                found_project = True
+                m_project = project
+        
+        if found_project == False or found_employee == False:
+            flag = True
+            raise ValueError("employee or project not found")
+        else:
+            m_project.assign_employee(m_employee)
+
+
+        
